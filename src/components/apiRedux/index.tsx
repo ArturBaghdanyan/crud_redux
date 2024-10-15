@@ -5,15 +5,14 @@ import { createPost, deletePost, fetchPosts, updatePost } from './fetch/fetchIte
 import { AppDispatch } from './store/store';
 import { Post } from '../../type/posts';
 
-const TodoList: React.FC = () => {
+const TodoList = () => {
     const [title, setTitle] = useState('');
-    const [body, setBody] = useState(''); // State for post body
-    const posts = useSelector((state: RootState) => state.posts.posts); // Adjusted to use posts state
+    const [body, setBody] = useState(''); 
+    const posts = useSelector((state: RootState) => state.posts.posts); 
     const loading = useSelector((state: RootState) => state.posts.loading);
     const error = useSelector((state: RootState) => state.posts.error);
     const dispatch = useDispatch<AppDispatch>();
 
-    // Fetch posts when the component mounts
     useEffect(() => {
         dispatch(fetchPosts());
     }, [dispatch]);

@@ -2,15 +2,18 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Post, initialState } from "../../../type/posts";
 
+const API_URL = process.env.REACT_APP_API_URL;
+console.log(process.env.REACT_APP_API_URL)
+
 // Fetch all posts (Read)
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
-    const response = await axios.get<Post[]>('https://jsonplaceholder.typicode.com/posts?_limit=10');
+    const response = await axios.get<Post[]>(`${API_URL}/posts?_limit=10`);
     return response.data;
 });
 
 // Add a new post (Create)
 export const createPost = createAsyncThunk('posts/createPost', async (newPost: { title: string; body: string }) => {
-    const response = await axios.post<Post>('https://jsonplaceholder.typicode.com/posts', {
+    const response = await axios.post<Post>(`${API_URL}/posts`, {
         title: newPost.title,
         body: newPost.body,
         completed: false,
@@ -20,13 +23,13 @@ export const createPost = createAsyncThunk('posts/createPost', async (newPost: {
 
 // Update a post (Update)
 export const updatePost = createAsyncThunk('posts/updatePost', async (updatedPost: Post) => {
-    const response = await axios.put<Post>(`https://jsonplaceholder.typicode.com/posts/${updatedPost.id}`, updatedPost);
+    const response = await axios.put<Post>(`${API_URL}/posts/${updatedPost.id}`, updatedPost);
     return response.data;
 });
 
 // Delete a post (Delete)
 export const deletePost = createAsyncThunk('posts/deletePost', async (id: number) => {
-    await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
+    await axios.delete(`${API_URL}/posts/${id}`);
     return id;
 });
 

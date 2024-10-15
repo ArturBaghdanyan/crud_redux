@@ -4,23 +4,21 @@ import { ICard } from "../../type/todo";
 import TodoItems from './todoItems';
 
 const TodoList = () => {
-    const [todos, setTodos] = useState<Array<ICard>>([])
-
-    
+  const [todos, setTodos] = useState<Array<ICard>>([])
 
   return (
     <div>
-        <AddColumn onAdd={(text: string) => (
-            setTodos([
-                ...todos, 
-                {
-                    id: Date.now().toString(), 
-                    title: text, 
-                    isCompleted: false
-                }
-            ])
-        )}/>
-       <TodoItems todos={todos} setTodos={setTodos} />
+      <AddColumn onAdd={(text: string) => (
+        setTodos([
+          ...todos, 
+          {
+            id: Date.now().toString(), 
+            title: text, 
+            isCompleted: false
+          }
+        ])
+      )}/>
+      <TodoItems todos={todos} setTodos={setTodos} />
     </div>
   )
 }
